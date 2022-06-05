@@ -11,3 +11,5 @@
 * Lets not forget to include reference if we used someone's work
 
 **We will be tracking our progress inside Notion**
+
+**Project description will be first in Notion and later on we will move it to Github Readme**
