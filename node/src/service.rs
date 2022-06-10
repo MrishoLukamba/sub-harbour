@@ -62,6 +62,7 @@ pub fn new_partial(
 		return Err(ServiceError::Other("Remote Keystores are not supported.".into()))
 	}
 
+
 	let telemetry = config
 		.telemetry_endpoints
 		.clone()
@@ -87,6 +88,17 @@ pub fn new_partial(
 			executor,
 		)?;
 	let client = Arc::new(client);
+
+	let keystore = keystore_container.sync_keystore();
+
+	if config.offchain_worker.enabled{
+		sp_keystore::SyncCryptoStore::sr25519_generate_new(
+			&*keystore,
+			node_template_runtime::pallet_template::KEY_TYPE,
+			Some("//Alice"),
+		).expect("Creating key with account Alice should work");
+	}
+
 
 	let telemetry = telemetry.map(|(worker, telemetry)| {
 		task_manager.spawn_handle().spawn("telemetry", None, worker.run());
