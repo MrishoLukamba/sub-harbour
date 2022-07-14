@@ -1,5 +1,5 @@
 [package]
-name = "pallet-commerce"
+name = "pallet-payment"
 version = "4.0.0-dev"
 description = "FRAME pallet template for defining custom runtime logic."
 authors = ["Substrate DevHub <https://github.com/substrate-developer-hub>"]
@@ -26,6 +26,8 @@ sp-io = { default-features = false, version = "6.0.0", git = "https://github.com
 sp-runtime = { default-features = false, version = "6.0.0", git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.25" }
 sp-std = { default-features = false, version = "4.0.0", git = "https://github.com/paritytech/substrate"}
 #local dependencies
+pallet-commerce = { version = "4.0.0-dev", default-features = false, path = "../template" }
+
 [features]
 default = ["std"]
 std = [

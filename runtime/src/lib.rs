@@ -44,7 +44,8 @@ pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 
 /// Import the template pallet.
-pub use pallet_template;
+pub use pallet_commerce;
+pub use pallet_payment;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -262,8 +263,18 @@ impl pallet_sudo::Config for Runtime {
 }
 
 /// Configure the pallet-template in pallets/template.
-impl pallet_template::Config for Runtime {
+impl pallet_commerce::Config for Runtime {
 	type Event = Event;
+	type Currency = Balances;
+	type Max = ConstU32<10>;
+
+}
+
+impl pallet_payment::Config for Runtime {
+	type Event = Event;
+	type Currency = Balances;
+	type Max = ConstU32<10>;
+
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -282,7 +293,9 @@ construct_runtime!(
 		TransactionPayment: pallet_transaction_payment,
 		Sudo: pallet_sudo,
 		// Include the custom logic from the pallet-template in the runtime.
-		TemplateModule: pallet_template,
+		Commerce: pallet_commerce,
+		Payment: pallet_payment
+
 	}
 );
 
